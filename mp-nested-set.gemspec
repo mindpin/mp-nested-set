@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = MpNestedSet::VERSION
   spec.authors       = ["arlyxiao"]
   spec.email         = ["kingla_pei@163.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{nested tree extended from mongoid_nested_set}
+  spec.description   = %q{nested tree extended from mongoid_nested_set}
+  spec.homepage      = "https://github.com/mindpin/mp-nested-set"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -24,7 +24,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "rspec", "~> 2.6"
   spec.add_development_dependency "database_cleaner", "~> 1.2.0"
-
 
   spec.add_dependency "mongoid_nested_set"
 end

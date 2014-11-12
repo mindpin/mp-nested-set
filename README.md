@@ -1,4 +1,4 @@
-# Mp::Nested::Set
+# MpNestedSet
 
 TODO: Write a gem description
 
