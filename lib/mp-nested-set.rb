@@ -39,11 +39,7 @@ module MPNestedSet
       end
 
       def _check_scope_name
-        scope = self.category.scope
-
-        MPNestedSet.scopes.each do |s|
-          return if s[:name].eql? scope
-        end
+        return if MPNestedSet.user_scope[:name].eql? self.category.scope
 
         errors.add(:base, '无法添加该分类')
       end
