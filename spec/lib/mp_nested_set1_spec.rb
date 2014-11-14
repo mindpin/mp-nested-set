@@ -28,6 +28,25 @@ describe MpNestedSet do
 end
 
 
+describe MpNestedSet do
+
+  before {
+    c1 = Category.create(:scope => 'movie')
+    c2 = c1.children.create
+    c3 = c2.children.create
+    c4 = c3.children.create
+    c5 = c4.children.create
+
+    Book1.create(:category => c1)
+  }
+  
+  it 'of_categories_scope 为 0' do    
+    Book1.all.length.should eql(0)
+  end
+end
+
+
+
 
 
 describe MpNestedSet do
