@@ -1,8 +1,9 @@
 module MPNestedSet
   @@scopes = []
+  @@user_scope = Hash.new
 
   class << self
-    attr_accessor :configure
+    attr_accessor :user_scope
 
     def config(&block)
       self.instance_eval &block
