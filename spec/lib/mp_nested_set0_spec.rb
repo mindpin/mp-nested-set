@@ -21,7 +21,7 @@ describe MPNestedSet do
 
   }
   
-  it 'of_categories_scope 为 2' do    
+  it 'of_categories_scope 为 3' do    
     Book.all.length.should eql(3)
   end
 
