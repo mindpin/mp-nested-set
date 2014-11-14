@@ -18,8 +18,9 @@ module MPNestedSet
 
         self.send(:validate, :_invalid_scope) unless MPNestedSet.scopes.include? scope
 
+        self.send(:validate, :_check_scope_name)
+
         self.send(:validate, :_check_scope_level)
-        
       end
 
 
@@ -30,11 +31,20 @@ module MPNestedSet
         Category.where(:scope => user_scope[:name])
       end
 
-
     end
 
     private
       def _invalid_scope
+        errors.add(:base, '无法添加该分类')
+      end
+
+      def _check_scope_name
+        scope = self.category.scope
+
+        MPNestedSet.scopes.each do |s|
+          return if s[:name].eql? scope
+        end
+
         errors.add(:base, '无法添加该分类')
       end
 

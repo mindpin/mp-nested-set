@@ -33,7 +33,7 @@ end
 describe MpNestedSet do
 
   before {
-    c1 = Category.create
+    c1 = Category.create(:scope => 'movie1')
     c2 = c1.children.create
     c3 = c2.children.create
     c4 = c3.children.create
