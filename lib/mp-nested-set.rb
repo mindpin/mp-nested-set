@@ -27,8 +27,7 @@ module MPNestedSet
 
       # 查询该业务模型 使用的 scope 下的所有分类
       def categories
-        user_scope = MPNestedSet.user_scope
-        Category.where(:scope => user_scope[:name])
+        Category.where(:scope => MPNestedSet.user_scope[:name])
       end
 
     end
