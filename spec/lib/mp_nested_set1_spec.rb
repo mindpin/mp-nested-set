@@ -32,10 +32,10 @@ describe MpNestedSet do
 
   before {
     c1 = Category.create(:scope => 'movie')
-    c2 = c1.children.create
-    c3 = c2.children.create
-    c4 = c3.children.create
-    c5 = c4.children.create
+    c2 = c1.children.create(:scope => 'movie')
+    c3 = c2.children.create(:scope => 'movie')
+    c4 = c3.children.create(:scope => 'movie')
+    c5 = c4.children.create(:scope => 'movie')
 
     Book1.create(:category => c1)
   }

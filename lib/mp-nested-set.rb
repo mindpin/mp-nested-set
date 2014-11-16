@@ -44,7 +44,9 @@ module MPNestedSet
       end
 
       def _check_scope_level
-        return unless Category.where(:depth => self.category.depth + 4).exists?
+        return unless Category.where(
+          :scope => MPNestedSet.user_scope[:name], 
+          :depth => self.category.depth + 4).exists?
         errors.add(:base, '无法添加该分类')
       end
 
