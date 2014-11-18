@@ -18,13 +18,12 @@ class Category
 
   def check_scope_level
     s = MPNestedSet.scopes.detect {|f| f[:name].eql? self.scope}
-    return if s.nil? or s[:options].nil?
+    return if s.nil? or s[:options].nil? or self.parent.blank?
 
-    depth = s[:options][:depth] - 1
-
-    if Category.where(:scope => self.scope, :depth => {'$gte' => depth}).exists?
+    if self.parent.depth + 1 >= s[:options][:depth]
       errors.add(:base, '无法添加该分类')
     end
+
   end
 
 end
