@@ -11,4 +11,10 @@ class Category
   # field :rgt,       :type => Integer
   # field :depth,     :type => Integer
   field :scope,     :type => String
+
+
+  def self.invalid_scope_level(scope)
+    Category.where(:scope => scope, :depth => {'$gt' => 2}).exists?
+  end
+
 end

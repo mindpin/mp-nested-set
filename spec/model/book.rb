@@ -5,6 +5,6 @@ class Book
 
   belongs_to :category
 
-  of_categories_scope :name => 'movie'
+  of_categories_scope 'movie'
 
 end

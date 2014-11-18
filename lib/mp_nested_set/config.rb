@@ -1,6 +1,5 @@
 module MPNestedSet
   @@scopes = []
-  @@user_scope = Hash.new
 
   class << self
     attr_accessor :user_scope, :scopes

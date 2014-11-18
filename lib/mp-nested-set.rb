@@ -12,13 +12,19 @@ module MPNestedSet
 
 
     module ClassMethods
+
+      attr_accessor :scope
+
       # 注册使用 scope 这个分类
       def of_categories_scope(scope)
-        MPNestedSet.user_scope = scope
+        self.scope = scope
 
-        self.send(:validate, :_invalid_scope) unless MPNestedSet.scopes.include? scope
+        unless MPNestedSet.scopes.detect {|f| f[:name].eql? scope}
+          self.send(:validate, :_invalid_scope)
+        end
+        
 
-        self.send(:validate, :_check_scope_name)
+        self.send(:validate, :_check_scope)
 
         self.send(:validate, :_check_scope_level)
       end
@@ -27,7 +33,7 @@ module MPNestedSet
 
       # 查询该业务模型 使用的 scope 下的所有分类
       def categories
-        Category.where(:scope => MPNestedSet.user_scope[:name])
+        Category.where(:scope => self.scope)
       end
 
     end
@@ -37,16 +43,14 @@ module MPNestedSet
         errors.add(:base, '无法添加该分类')
       end
 
-      def _check_scope_name
-        return if MPNestedSet.user_scope[:name].eql? self.category.scope
+      def _check_scope
+        return if self.class.scope.eql? self.category.scope
 
         errors.add(:base, '无法添加该分类')
       end
 
       def _check_scope_level
-        return unless Category.where(
-          :scope => MPNestedSet.user_scope[:name], 
-          :depth => self.category.depth + 4).exists?
+        return unless Category.invalid_scope_level(self.class.scope)
         errors.add(:base, '无法添加该分类')
       end
 

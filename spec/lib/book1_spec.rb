@@ -2,15 +2,15 @@ require "spec_helper"
 
 
 MPNestedSet.config do
-  add_scope('movie', :options => {:depth => 3})
+  add_scope('movie')
 
-  add_scope('movie1')
+  add_scope('movie1', :options => {:depth => 3})
 end
 
 
 require 'model/book1'
 
-describe MpNestedSet do
+describe MPNestedSet do
 
   before {
     c1 = Category.create
@@ -28,14 +28,14 @@ describe MpNestedSet do
 end
 
 
-describe MpNestedSet do
+describe MPNestedSet do
 
   before {
-    c1 = Category.create(:scope => 'movie')
-    c2 = c1.children.create(:scope => 'movie')
-    c3 = c2.children.create(:scope => 'movie')
-    c4 = c3.children.create(:scope => 'movie')
-    c5 = c4.children.create(:scope => 'movie')
+    c1 = Category.create(:scope => 'movie1')
+    c2 = c1.children.create(:scope => 'movie1')
+    c3 = c2.children.create(:scope => 'movie1')
+    c4 = c3.children.create(:scope => 'movie1')
+    c5 = c4.children.create(:scope => 'movie1')
 
     Book1.create(:category => c1)
   }
@@ -47,9 +47,26 @@ end
 
 
 
+describe MPNestedSet do
+
+  before {
+    c1 = Category.create(:scope => 'movie1')
+    c2 = c1.children.create(:scope => 'movie1')
+    c3 = c2.children.create(:scope => 'movie1')
+
+    Book1.create(:category => c1)
+  }
+  
+  it 'of_categories_scope 为 1' do 
+    Book1.all.length.should eql(1)
+  end
+end
 
 
-describe MpNestedSet do
+
+
+
+describe MPNestedSet do
 
   before {
     c1 = Category.create(:scope => 'movie1')
@@ -60,8 +77,8 @@ describe MpNestedSet do
     Book1.create(:category => c1)
   }
   
-  it 'of_categories_scope 为 0' do 
-    Book1.all.length.should eql(0)
+  it 'of_categories_scope 为 1' do 
+    Book1.all.length.should eql(1)
   end
 end
 
@@ -69,7 +86,7 @@ end
 
 
 
-describe MpNestedSet do
+describe MPNestedSet do
 
   before {
     c1 = Category.create(:scope => 'movie')
@@ -80,7 +97,7 @@ describe MpNestedSet do
     Book1.create(:category => c1)
   }
   
-  it 'of_categories_scope 为 1' do 
-    Book1.all.length.should eql(1)
+  it 'of_categories_scope 为 0' do 
+    Book1.all.length.should eql(0)
   end
 end

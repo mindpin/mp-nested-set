@@ -5,6 +5,6 @@ class Book1
 
   belongs_to :category
 
-  of_categories_scope :name => 'movie', :options => {:depth => 3}
+  of_categories_scope 'movie1'
 
 end
