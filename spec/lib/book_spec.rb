@@ -44,5 +44,9 @@ describe MPNestedSet do
   it 'of_categories_scope 为 0' do    
     Book.all.length.should eql(0)
   end
+
+  it 'categories' do
+    Book.categories.all.length.should eql(0)
+  end
 end
 
