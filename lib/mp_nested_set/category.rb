@@ -13,8 +13,18 @@ class Category
   field :scope,     :type => String
 
 
-  def self.invalid_scope_level(scope)
-    Category.where(:scope => scope, :depth => {'$gt' => 2}).exists?
+  validates :scope, :presence => true
+  validate :check_scope_level
+
+  def check_scope_level
+    s = MPNestedSet.scopes.detect {|f| f[:name].eql? self.scope}
+    return if s.nil? or s[:options].nil?
+
+    depth = s[:options][:depth] - 1
+
+    if Category.where(:scope => self.scope, :depth => {'$gte' => depth}).exists?
+      errors.add(:base, '无法添加该分类')
+    end
   end
 
 end

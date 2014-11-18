@@ -23,10 +23,7 @@ module MPNestedSet
           self.send(:validate, :_invalid_scope)
         end
         
-
         self.send(:validate, :_check_scope)
-
-        self.send(:validate, :_check_scope_level)
       end
 
 
@@ -46,11 +43,6 @@ module MPNestedSet
       def _check_scope
         return if self.class.scope.eql? self.category.scope
 
-        errors.add(:base, '无法添加该分类')
-      end
-
-      def _check_scope_level
-        return unless Category.invalid_scope_level(self.class.scope)
         errors.add(:base, '无法添加该分类')
       end
 

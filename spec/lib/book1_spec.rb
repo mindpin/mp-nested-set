@@ -10,22 +10,6 @@ end
 
 require 'model/book1'
 
-describe MPNestedSet do
-
-  before {
-    c1 = Category.create
-    c2 = c1.children.create
-    c3 = c2.children.create
-    c4 = c3.children.create
-    c5 = c4.children.create
-
-    Book1.create(:category => c1)
-  }
-  
-  it 'of_categories_scope 为 0' do    
-    Book1.all.length.should eql(0)
-  end
-end
 
 
 describe MPNestedSet do
@@ -39,8 +23,12 @@ describe MPNestedSet do
     Book1.create(:category => c1)
   }
   
-  it 'of_categories_scope 为 0' do    
-    Book1.all.length.should eql(0)
+  it 'of_categories_scope 为 1' do    
+    Book1.all.length.should eql(1)
+  end
+
+  it 'categories' do    
+    Book1.categories.all.length.should eql(3)
   end
 end
 
@@ -59,44 +47,28 @@ describe MPNestedSet do
   it 'of_categories_scope 为 1' do 
     Book1.all.length.should eql(1)
   end
+
+  it 'categories' do    
+    Book1.categories.all.length.should eql(3)
+  end
 end
-
-
-
 
 
 describe MPNestedSet do
 
   before {
     c1 = Category.create(:scope => 'movie1')
-    c2 = c1.children.create
-    c3 = c2.children.create
-    c4 = c3.children.create
+    c2 = c1.children.create(:scope => 'movie1')
 
     Book1.create(:category => c1)
+    Book1.create(:category => c2)
   }
   
   it 'of_categories_scope 为 1' do 
-    Book1.all.length.should eql(1)
+    Book1.all.length.should eql(2)
   end
-end
 
-
-
-
-
-describe MPNestedSet do
-
-  before {
-    c1 = Category.create(:scope => 'movie')
-    c2 = c1.children.create
-    c3 = c2.children.create
-    c4 = c3.children.create
-
-    Book1.create(:category => c1)
-  }
-  
-  it 'of_categories_scope 为 0' do 
-    Book1.all.length.should eql(0)
+  it 'categories' do    
+    Book1.categories.all.length.should eql(2)
   end
 end
