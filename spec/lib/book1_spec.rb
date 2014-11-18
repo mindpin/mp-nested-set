@@ -35,7 +35,6 @@ describe MPNestedSet do
     c2 = c1.children.create(:scope => 'movie1')
     c3 = c2.children.create(:scope => 'movie1')
     c4 = c3.children.create(:scope => 'movie1')
-    c5 = c4.children.create(:scope => 'movie1')
 
     Book1.create(:category => c1)
   }
